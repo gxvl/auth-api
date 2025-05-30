@@ -4,10 +4,11 @@ import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import compression from 'compression';
 import cors from 'cors';
-import mongoose, { mongo } from 'mongoose';
+import mongoose from 'mongoose';
 import dotenv from 'dotenv';
-dotenv.config();
+import router from './router';
 
+dotenv.config();
 
 const app = express();
 app.use(cors({
@@ -31,3 +32,5 @@ mongoose.connect(MONGO_URI)
 mongoose.connection.on('error', (err: Error) => {
   console.error('MongoDB connection error:', err);
 });
+
+app.use('/', router())
